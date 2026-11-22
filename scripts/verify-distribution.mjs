@@ -63,6 +63,8 @@ launcher.stderr.on('data', chunk => { output = (output + chunk).slice(-16000); }
 let spawnError;
 launcher.on('error', error => { spawnError = error; });
 let browser;
+let page;
+const errors = [];
 try {
   let ready = false;
   for (let attempt = 0; attempt < 120; attempt++) {
@@ -74,9 +76,9 @@ try {
   assert.ok(ready, `Embedded runtime did not start: ${output}`);
   browser = await chromium.connectOverCDP(`http://127.0.0.1:${port}`);
   const context = browser.contexts()[0];
-  const page = context.pages().find(page => page.url().startsWith('file:')) ?? context.pages()[0];
-  const errors = [];
+  page = context.pages().find(page => page.url().startsWith('file:')) ?? context.pages()[0];
   page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => { if (message.type() === 'error') console.error('Renderer console:', message.text()); });
   page.on('dialog', dialog => dialog.accept());
   await page.waitForSelector('.point-label');
   assert.ok(page.url().includes('app.asar'), 'Must load packaged sources');
@@ -114,6 +116,15 @@ try {
   await page.evaluate(() => window.studio.setDirty(false));
   console.log(`PASS ${label} ${values.arch}: verified ZIP checksum and contents; relocated embedded runtime launches without developer tools; renderer reloads offline; geometry, spheres, v2 JSON import, bundled Prompt and portable data work.`);
   console.log(`Verified distribution: ${path.join(release, name)}`);
+} catch (error) {
+  console.error('Packaged application output:', output);
+  console.error('Renderer errors:', errors);
+  if (page) {
+    console.error('Renderer page:', page.url());
+    console.error('Renderer text:', await page.locator('body').innerText({ timeout: 3000 }).catch(() => '(unavailable)'));
+    await page.screenshot({ path: path.resolve(`.qa/distribution-${platform}-${values.arch}.png`), scale: 'css', timeout: 5000 }).catch(() => {});
+  }
+  throw error;
 } finally {
   if (browser) {
     for (const context of browser.contexts()) for (const page of context.pages()) {
