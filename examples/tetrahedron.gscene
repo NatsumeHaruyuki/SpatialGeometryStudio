@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "id": "tetrahedron",
+  "title": "三棱锥 · 垂直与二面角",
+  "problem": {
+    "text": "三棱锥 A-BCD 中，△BCD 是边长为 2 的等边三角形，平面 ABD ⊥ 平面 BCD，AB = AD。O、E 分别是 BD、AD 的中点，OA = a。",
+    "conditions": [
+      "当前 a = 1",
+      "OA ⊥ OC",
+      "E 为 AD 的中点"
+    ],
+    "note": "来自 test.md 第 2 题。此处展示 a=1 的构型，可在显示页编辑 A 的高度。"
+  },
+  "solid": {
+    "id": "tetrahedron",
+    "type": "三棱锥",
+    "points": [
+      {
+        "id": "A",
+        "label": "A",
+        "position": [
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "position": [
+          -1,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "C",
+        "label": "C",
+        "position": [
+          0,
+          0,
+          1.7320508075688772
+        ]
+      },
+      {
+        "id": "D",
+        "label": "D",
+        "position": [
+          1,
+          0,
+          0
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "id": "B-C",
+        "start": "B",
+        "end": "C"
+      },
+      {
+        "id": "C-D",
+        "start": "C",
+        "end": "D"
+      },
+      {
+        "id": "B-D",
+        "start": "D",
+        "end": "B"
+      },
+      {
+        "id": "A-D",
+        "start": "D",
+        "end": "A"
+      },
+      {
+        "id": "A-B",
+        "start": "A",
+        "end": "B"
+      },
+      {
+        "id": "A-C",
+        "start": "A",
+        "end": "C"
+      }
+    ],
+    "faces": [
+      {
+        "id": "BCD",
+        "label": "BCD",
+        "vertices": [
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "id": "ABD",
+        "label": "ADB",
+        "vertices": [
+          "A",
+          "D",
+          "B"
+        ]
+      },
+      {
+        "id": "ABC",
+        "label": "ABC",
+        "vertices": [
+          "A",
+          "B",
+          "C"
+        ]
+      },
+      {
+        "id": "ACD",
+        "label": "ACD",
+        "vertices": [
+          "A",
+          "C",
+          "D"
+        ]
+      }
+    ]
+  },
+  "constructions": [
+    {
+      "id": "mid-O",
+      "kind": "midpoint",
+      "point": "O",
+      "label": "O",
+      "a": "B",
+      "b": "D"
+    },
+    {
+      "id": "mid-E",
+      "kind": "midpoint",
+      "point": "E",
+      "label": "E",
+      "a": "A",
+      "b": "D"
+    },
+    {
+      "id": "line-AO",
+      "kind": "segment",
+      "a": "A",
+      "b": "O"
+    },
+    {
+      "id": "line-OC",
+      "kind": "segment",
+      "a": "O",
+      "b": "C"
+    },
+    {
+      "id": "line-EC",
+      "kind": "segment",
+      "a": "E",
+      "b": "C"
+    },
+    {
+      "id": "angle",
+      "kind": "dihedral",
+      "faceA": "BCD",
+      "faceB": "ABD"
+    }
+  ],
+  "display": {
+    "grid": true,
+    "labels": true,
+    "faces": true,
+    "sectionPlane": true,
+    "hiddenEdges": true
+  },
+  "view": {
+    "position": [
+      4.8,
+      3.6,
+      -5.3
+    ],
+    "target": [
+      0,
+      0.5,
+      0.5
+    ]
+  },
+  "uncertainties": []
+}

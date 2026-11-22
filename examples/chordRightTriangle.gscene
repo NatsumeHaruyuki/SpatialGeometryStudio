@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "id": "chordRightTriangle",
+  "title": "垂径定理 · 弦与直角三角形",
+  "problem": {
+    "text": "四面体 A-BCD 的外接球球心为 Oₛ₁，B、D 都在球面上，因此 BD 是球的弦。过 Oₛ₁ 作 BD 的垂线，垂足 H 为弦的中点；观察高亮直角三角形 Oₛ₁HD 中半径、半弦长和弦心距的关系。",
+    "conditions": [
+      "初始底面 BCD 为边长 2 的等边三角形，A = (0, 1, 0)",
+      "B、D 在外接球面上，Oₛ₁B = Oₛ₁D = R",
+      "Oₛ₁H ⊥ BD，BH = HD = 1",
+      "R² = Oₛ₁H² + HD²"
+    ],
+    "note": "这里的 BD 是外接球的真实弦。球心、弦和垂线处于同一平面，构成球的圆截面；该圆内的垂径定理说明 H 平分弦 BD。修改顶点后球心、垂足和角度自动更新；不得将相同结论套用于不与球相交的直线。"
+  },
+  "solid": {
+    "id": "tetrahedron",
+    "type": "三棱锥",
+    "points": [
+      {
+        "id": "A",
+        "label": "A",
+        "position": [
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "position": [
+          -1,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "C",
+        "label": "C",
+        "position": [
+          0,
+          0,
+          1.7320508075688772
+        ]
+      },
+      {
+        "id": "D",
+        "label": "D",
+        "position": [
+          1,
+          0,
+          0
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "id": "B-C",
+        "start": "B",
+        "end": "C"
+      },
+      {
+        "id": "C-D",
+        "start": "C",
+        "end": "D"
+      },
+      {
+        "id": "B-D",
+        "start": "D",
+        "end": "B"
+      },
+      {
+        "id": "A-D",
+        "start": "D",
+        "end": "A"
+      },
+      {
+        "id": "A-B",
+        "start": "A",
+        "end": "B"
+      },
+      {
+        "id": "A-C",
+        "start": "A",
+        "end": "C"
+      }
+    ],
+    "faces": [
+      {
+        "id": "BCD",
+        "label": "BCD",
+        "vertices": [
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "id": "ABD",
+        "label": "ADB",
+        "vertices": [
+          "A",
+          "D",
+          "B"
+        ]
+      },
+      {
+        "id": "ABC",
+        "label": "ABC",
+        "vertices": [
+          "A",
+          "B",
+          "C"
+        ]
+      },
+      {
+        "id": "ACD",
+        "label": "ACD",
+        "vertices": [
+          "A",
+          "C",
+          "D"
+        ]
+      }
+    ]
+  },
+  "constructions": [
+    {
+      "id": "chord-sphere",
+      "kind": "circumsphere",
+      "points": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "centerPoint": "O_s1",
+      "centerLabel": "Oₛ₁"
+    },
+    {
+      "id": "chord-perpendicular",
+      "kind": "perpendicular",
+      "from": "O_s1",
+      "line": [
+        "B",
+        "D"
+      ],
+      "point": "H",
+      "label": "H"
+    },
+    {
+      "id": "chord-triangle",
+      "kind": "triangle",
+      "points": [
+        "O_s1",
+        "H",
+        "D"
+      ]
+    },
+    {
+      "id": "chord-angle",
+      "kind": "angle",
+      "points": [
+        "O_s1",
+        "H",
+        "D"
+      ]
+    }
+  ],
+  "display": {
+    "grid": true,
+    "labels": true,
+    "faces": true,
+    "sectionPlane": true,
+    "hiddenEdges": true
+  },
+  "view": {
+    "position": [
+      3.456,
+      2.648,
+      -3.676
+    ],
+    "target": [
+      0,
+      0.2,
+      0.5
+    ]
+  },
+  "uncertainties": []
+}

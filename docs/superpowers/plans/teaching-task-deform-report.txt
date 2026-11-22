@@ -1,0 +1,12 @@
+Vertex deformation
+
+src/geometry/deform.ts exports deformSolid(solid, pointId, desired). It returns a new solid with the original topology, identifiers, and metadata. Prism classification checks opposite face geometry and matched cross edges, using the greatest separation of face centers along Y. An upper vertex translates the upper face, and a lower vertex projects onto the lower face and carries its corresponding upper vertex. A quadrangular pyramid uses a planar base and a free apex. A tetrahedron and other polyhedra move the specified vertex freely.
+
+The helper checks vertex IDs, finite coordinates, coincident vertices, and collapsed prism height. The scene parser checks convexity, face validity, and construction dependencies. The rotational-solid helper owns round control points.
+
+Verification
+
+- The first focused run failed to resolve ./deform before implementation.
+- npm.cmd test -- src/geometry/deform.test.ts passed all 11 tests. Valid deformations are passed through parseScene, including a cube with existing constructions, an oblique triangular prism, a tilted quadrangular pyramid, and a tetrahedron.
+- A focused strict TypeScript check of the two deformation files and their imports passed.
+- The shared npm.cmd test run at 06:32 passed 64 tests and failed 5 tests in teaching.test.ts while preset integration was in progress. The failing tests were round trips for quadPyramid, cylinder, cone, and doubleCone, plus classification of the initial doubleCone cut. The deformation suite passed in that run.

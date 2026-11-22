@@ -1,0 +1,51 @@
+{
+  "name": "spatial-geometry-studio",
+  "version": "0.2.1",
+  "private": true,
+  "description": "Offline portable solid geometry teaching studio for Windows",
+  "author": "Spatial Geometry Studio",
+  "license": "UNLICENSED",
+  "type": "module",
+  "main": "dist-electron/main.cjs",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "dev:desktop": "node scripts/dev-desktop.mjs",
+    "build:web": "tsc --noEmit && vite build",
+    "build:desktop": "node scripts/build-electron.mjs",
+    "build": "npm run build:web && npm run build:desktop",
+    "start": "electron .",
+    "test": "vitest run",
+    "test:e2e": "node scripts/smoke.mjs && node scripts/teaching-smoke.mjs && node scripts/drag-regressions.mjs && node scripts/sphere-smoke.mjs && npm run test:dihedral && npm run test:sample && npm run test:import",
+    "test:dihedral": "node scripts/dihedral-smoke.mjs",
+    "test:sample": "node scripts/study-smoke.mjs && node scripts/sample-smoke.mjs",
+    "test:import": "node scripts/question-import-smoke.mjs && node scripts/question-import-regressions.mjs",
+    "test:portable": "node scripts/verify-portable.mjs",
+    "package:win": "npm run build && electron-builder --config electron-builder.config.cjs --win portable --x64 && node scripts/release.mjs",
+    "package:mac:arm64": "npm run build && electron-builder --config electron-builder.config.cjs --mac zip --arm64",
+    "package:mac:x64": "npm run build && electron-builder --config electron-builder.config.cjs --mac zip --x64",
+    "package:mac:universal": "npm run build && electron-builder --config electron-builder.config.cjs --mac zip --universal"
+  },
+  "dependencies": {
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "three": "0.187.0",
+    "zod": "4.6.7",
+    "zustand": "5.1.0"
+  },
+  "overrides": {
+    "minimatch": "11.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/three": "0.187.0",
+    "electron": "45.4.1",
+    "electron-builder": "26.18.0",
+    "esbuild": "0.28.2",
+    "playwright": "1.65.1",
+    "typescript": "7.0.2",
+    "vite": "8.3.8",
+    "vitest": "5.1.1"
+  }
+}

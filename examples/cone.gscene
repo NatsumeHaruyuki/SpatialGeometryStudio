@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "id": "cone",
+  "title": "单圆锥 · 截面探究",
+  "problem": {
+    "text": "单圆锥与平面相交。使用右侧截面预设或调整倾角；按住 Alt 拖动截平面，观察交线变化。",
+    "conditions": [
+      "初始半径 1.4",
+      "每个锥体或柱体高 2.6"
+    ],
+    "note": "O 为原点/锥顶控制点，T 控制轴向与高度，圆周点控制半径。模型显示为有限高度；开放曲线在模型边界截断。"
+  },
+  "solid": {
+    "id": "cone",
+    "type": "单圆锥",
+    "primitive": {
+      "kind": "cone",
+      "origin": [
+        0,
+        2.6,
+        0
+      ],
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "radius": 1.4,
+      "height": 2.6
+    },
+    "points": [
+      {
+        "id": "O",
+        "label": "O",
+        "position": [
+          0,
+          2.6,
+          0
+        ]
+      },
+      {
+        "id": "T",
+        "label": "T",
+        "position": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "A",
+        "label": "A",
+        "position": [
+          1.4,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "position": [
+          0,
+          0,
+          -1.4
+        ]
+      },
+      {
+        "id": "C",
+        "label": "C",
+        "position": [
+          -1.4,
+          0,
+          0
+        ]
+      }
+    ],
+    "edges": [],
+    "faces": []
+  },
+  "constructions": [
+    {
+      "id": "teaching-section",
+      "kind": "planeSection",
+      "normal": [
+        0.573576436351046,
+        -0.8191520442889918,
+        0
+      ],
+      "origin": [
+        0,
+        1.3,
+        0
+      ]
+    }
+  ],
+  "display": {
+    "grid": true,
+    "labels": true,
+    "faces": true,
+    "sectionPlane": true,
+    "hiddenEdges": true
+  },
+  "view": {
+    "position": [
+      5,
+      3.7,
+      6
+    ],
+    "target": [
+      0,
+      1.2,
+      0
+    ]
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,197 @@
+{
+  "schema_version": 2,
+  "id": "imported-scene",
+  "title": "圆锥·题目点优先导入",
+  "problem": {
+    "text": "D 为圆锥顶点，O 为底面圆心，AE 为底面直径，AE=AD。△ABC 为底面内接正三角形，P 在线段 DO 上，PO=(√6/6)DO。",
+    "conditions": [
+      "AE 为底面直径",
+      "AE=AD",
+      "△ABC 为底面内接正三角形",
+      "P 在线段 DO 上，PO/DO=√6/6"
+    ],
+    "note": "将整体尺度归一化为底面半径1，由 OA=1、AD=AE=2 得 DO=√3。P 从 O 向 D 取参数 √6/6，是题设确定的比例。圆周方位可整体旋转，当前坐标为一组示意构型。"
+  },
+  "solid": {
+    "id": "model",
+    "type": "cone",
+    "points": [
+      {
+        "id": "D",
+        "label": "D",
+        "position": [
+          0,
+          1.7320508075688772,
+          0
+        ]
+      },
+      {
+        "id": "O",
+        "label": "O",
+        "position": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "A",
+        "label": "A",
+        "position": [
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "position": [
+          -0.5,
+          0,
+          0.8660254037844386
+        ]
+      },
+      {
+        "id": "C",
+        "label": "C",
+        "position": [
+          -0.5,
+          0,
+          -0.8660254037844386
+        ]
+      },
+      {
+        "id": "E",
+        "label": "E",
+        "position": [
+          -1,
+          0,
+          0
+        ]
+      }
+    ],
+    "edges": [],
+    "faces": [],
+    "definition": {
+      "kind": "cone",
+      "apex": "D",
+      "baseCenter": "O",
+      "radiusPoint": "A"
+    },
+    "primitive": {
+      "kind": "cone",
+      "origin": [
+        0,
+        1.7320508075688772,
+        0
+      ],
+      "axis": [
+        0,
+        -1.7320508075688772,
+        0
+      ],
+      "radial": [
+        1,
+        0,
+        0
+      ],
+      "radius": 1,
+      "height": 1.7320508075688772
+    }
+  },
+  "constructions": [
+    {
+      "id": "c1",
+      "kind": "movingPoint",
+      "point": "P",
+      "label": "P",
+      "start": "O",
+      "end": "D",
+      "t": 0.408248290463863
+    },
+    {
+      "id": "c2",
+      "kind": "segment",
+      "a": "A",
+      "b": "E"
+    },
+    {
+      "id": "c3",
+      "kind": "segment",
+      "a": "A",
+      "b": "B"
+    },
+    {
+      "id": "c4",
+      "kind": "segment",
+      "a": "B",
+      "b": "C"
+    },
+    {
+      "id": "c5",
+      "kind": "segment",
+      "a": "C",
+      "b": "A"
+    },
+    {
+      "id": "c6",
+      "kind": "segment",
+      "a": "P",
+      "b": "A"
+    },
+    {
+      "id": "c7",
+      "kind": "segment",
+      "a": "P",
+      "b": "B"
+    },
+    {
+      "id": "c8",
+      "kind": "segment",
+      "a": "P",
+      "b": "C"
+    },
+    {
+      "id": "c9",
+      "kind": "segment",
+      "a": "P",
+      "b": "E"
+    },
+    {
+      "id": "c10",
+      "kind": "segment",
+      "a": "P",
+      "b": "O"
+    },
+    {
+      "id": "c11",
+      "kind": "triangle",
+      "points": [
+        "A",
+        "B",
+        "C"
+      ]
+    }
+  ],
+  "display": {
+    "grid": false,
+    "labels": true,
+    "faces": false,
+    "sectionPlane": false,
+    "hiddenEdges": true
+  },
+  "view": {
+    "position": [
+      3.3166247903554,
+      3.3534939965509887,
+      4.145780987944249
+    ],
+    "target": [
+      0,
+      0.8660254037844386,
+      0
+    ]
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,21 @@
+import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+import path from 'node:path';
+
+const { version } = JSON.parse(await readFile('package.json', 'utf8'));
+const release = path.resolve(`release-v${version}`);
+const name = `GeometryTeaching-Windows-x64-v${version}`;
+const samples = ['cube', 'tetrahedron', 'prism', 'motion', 'quadPyramid', 'cylinder', 'cone', 'doubleCone', 'tetrahedronSpheres'];
+const folder = path.join(release, name);
+await mkdir(path.join(folder, 'samples'), { recursive: true });
+await copyFile(path.join(release, 'SpatialGeometryStudio.exe'), path.join(folder, 'SpatialGeometryStudio.exe'));
+for (const id of samples) await copyFile(`examples/${id}.gscene`, path.join(folder, 'samples', `${id}.gscene`));
+await writeFile(path.join(folder, 'README.txt'), `空间几何工作室 · Windows x64 试样 v${version}\r\n\r\n1. 解压整个 ZIP，双击 SpatialGeometryStudio.exe。无需安装 Node.js、Python 或 npm，无需命令行。\r\n2. 模型库：棱柱（三棱柱、四棱柱）、棱锥（三棱锥、四棱锥）、圆柱、圆锥（单圆锥、双圆锥）。samples 保留旧示例。\r\n3. 选择“调整顶点”后拖动点。棱柱和棱锥保留对应结构，旋转体的 O/T/圆周控制点分别调整位置、轴向高度及半径。\r\n4. Alt+左键拖动截面可沿法向平移。开放交线或交点也可选取；一次拖动可以一次撤销。\r\n5. 双圆锥右侧可选圆、椭圆、抛物线、双曲线，并调整倾角与位移。模型高度有限，开放曲线会截断。\r\n6. JSON 导入窗口的“一键复制 Prompt”复制完整提示词；在外部多模态 Agent 中粘贴图片与提示词，再将返回 JSON 导入。软件不会自行上传图片或发送 AI 请求。\r\n7. 保存 .gscene 可迁移所有几何、视角和构造；支持旧版文件。程序旁 GeometryTeachingData 与应用分离，勿删除已有项目。\r\n\r\n8. 外接球/内切球：选择工具后依次选择4个不同且不共面的点，构造所选四面体的球。右侧显示球心和半径；可同时创建两球。samples/tetrahedronSpheres.gscene为双球示例。依赖点运动到退化状态时球暂时隐藏，恢复后自动显示。\r\n试样边界：Windows 内部测试包未签名。macOS、其他电脑及显卡性能尚未实机验收。\r\n`);
+await writeFile(path.join(folder, 'version.json'), JSON.stringify({ product: 'Spatial Geometry Studio', version, platform: 'win32', architecture: 'x64', channel: 'prototype', schema_version: 1 }, null, 2));
+const archive = path.join(release, `${name}.zip`);
+const entries = ['SpatialGeometryStudio.exe', 'README.txt', 'version.json', ...samples.map(id => `samples/${id}.gscene`)];
+execFileSync('tar.exe', ['-a', '-cf', archive, '-C', release, ...entries.map(entry => `${name}/${entry}`)], { windowsHide: true, stdio: 'inherit' });
+const sha = async target => createHash('sha256').update(await readFile(target)).digest('hex');
+await writeFile(path.join(release, 'SHA256SUMS.txt'), `${await sha(archive)}  ${name}.zip\n${await sha(path.join(release, 'SpatialGeometryStudio.exe'))}  SpatialGeometryStudio.exe\n`);
+console.log(`Windows ZIP: ${archive}`);

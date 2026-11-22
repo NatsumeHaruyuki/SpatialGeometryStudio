@@ -1,2 +1,95 @@
-# SpatialGeometryStudio
-SpatialGeometryStudio For MacOS
+# 空间几何工作室 · Windows v0.2 sample
+
+依据外层 `reamde.md` 制作的本地立体几何教学原型。所有代码、依赖、样例、验证脚本和发布物都在这个文件夹内；外层原始需求、PDF、Word 和样题文本未修改。
+
+## 直接试用
+
+本次先用本目录的 `Windows v0.2.cmd` 启动 sample，直接打开“球心、垂线与射影”。运行依赖本开发目录及本机已有的 D:\DevDep Electron；不需要开发服务器。详细说明见 `SAMPLE.md`。
+
+本次新增可选球心和垂足、过点作垂线、三角形高亮、三点角、带向量及射影三角形的点面距离；显示版本为平台＋v0.2。按用户要求，本次不打包；旧版 EXE/ZIP、目录与用户数据保留，用户确认 sample 后才更新发布包。
+
+题图导入现已采用题目点优先的协议2：在“JSON 导入 / 导出”复制新的完整 Prompt，让外部多模态模型附图生成 JSON，粘贴返回结果即可。题目自己的 D/O/A/B/C 等点名直接建模，不再由圆锥等预占；可省略的界面字段自动补齐，支持常见代码围栏和网页转义。旧版协议1文件继续按原语义打开。
+
+可直接试用 `examples/questionConeV2.gscene`（含题干），或粘贴 `examples/questionConeV2.json`（简洁输入）。已核对底面等边三角形、AE=AD=2 和 PO/DO=√6/6。若出现真实缺点、重定义或循环依赖，提示会给出具体点和构造位置，并提供“一键复制修复请求”。更新后请保存并关闭旧 sample 窗口，再用启动器重开、重新复制 Prompt。
+
+首次运行在 EXE 同级创建 `GeometryTeachingData`，其中 `projects` 放项目、`exports` 放图片、`settings` 放本地配置。如果程序目录不可写，回退到用户数据目录。右侧齿轮可选择便携或标准模式，下次启动生效。切换目录不会移动或删除旧项目。
+
+应用未签名，属于内部测试包。正式发布签名、其他电脑兼容性和 Windows 10 实机验收仍需补充。macOS 配置已预留，不宣称已有可用 Mac 产物。
+
+## 可操作功能
+
+- 模型库：棱柱→三棱柱、四棱柱；棱锥→三棱锥、四棱锥；圆柱；圆锥→单圆锥、双圆锥。样例文件保留旧的五棱锥动点。
+- “调整顶点”后拖动原始点；棱柱上下底、棱锥底面保持对应有效结构。旋转体通过 O/T/圆周控制点调整位置、轴向/高度及半径。
+- Alt+左键拖动截面沿法向平移；隐藏截平面时也可拖动可见交线和交点；一次拖动对应一次撤销。
+- 外接球/内切球：依次选 4 个不同且不共面的点，显示球、球心和半径。外接球经过四顶点，内切球与四面相切，可同时创建。`samples/tetrahedronSpheres.gscene` 可直接打开演示。
+- 球随依赖点更新；重合或共面时暂时隐藏并提示，恢复后自动显示。初次选点退化会被拒绝；两种球支持保存重开、删除、撤销与重做。
+- 球心、垂足是真实依赖点，可在画布、按名称或构造栏选取，再用于辅助线、角度、三角形等构造。
+- 先选点再点击“作垂线”，随后两点定直线；也可先启动工具后依次选过点和直线两点。得到可选垂足 H 和直角标记，直线无限延伸。
+- 三角形工具仅高亮指定三点，支持正方形底面的一半；角度工具第二点为角顶点，右侧动态显示角度。
+- 点面距离按待测点及平面三点构造，显示垂足、单位法向量 n、连接向量 v、d=|v·n| 和射影直角三角形；面内点距离为0。平面无限延伸。
+- `examples/studyProjection.gscene` 演示球心与射影；`examples/chordRightTriangle.gscene` 演示真实球弦的垂径定理模型。
+- 双圆锥提供圆、椭圆、抛物线和双曲线预设、倾角与法向位移控制。按解析曲面计算交线，开放曲线不伪造封闭面积。
+- 左键旋转、右键平移、滚轮缩放、点/面的拾取；右侧支持按名称选择。
+- 两点中点、辅助线、三点确定截平面及凸多面体真实截面、四点确定且带公共直线和角弧的二面角。
+- 线段上的动点、往返播放、依赖更新、截面积显示、撤销及重做。
+- `.gscene` 打开/保存、JSON 导入/导出、包含标签的 PNG 图片。
+- JSON 窗口“一键复制 Prompt”复制完整内置规范；在外部多模态 Agent 贴图与 Prompt，再将 JSON 返回软件导入。剪贴板失败时可展开手动复制。
+- 项目保留几何、构造、动点参数、当前视角及显示设置。模型数据不依赖开发机绝对路径。
+- 所有输入先经过 Zod、引用、依赖、共面和凸性校验。错误输入不会替换当前场景。
+
+使用工具后按顺序选两个点、三个点或四个点，自动完成对应构造。所有点选工具均可通过右侧“按名称选择点”完成选点。二面角先选 A、B 两点确定公共直线（蓝色），再选直线外的 P、Q 两点确定平面 ABP、ABQ（橙色）；第四点选完自动测量 P—AB—Q。公共直线可以是辅助直线，不要求为模型原有棱。再次点击已选点，从该点重选；无效点不会清空前面的有效选择。Esc 取消工具，Ctrl+S 保存，Ctrl+O 打开，Ctrl+Z 撤销，Ctrl+Y 重做。删除一个依赖点时，其后续截面、球、二面角等构造一并删除，可撤销。
+
+新二面角保存为 `{ "kind": "dihedral", "id": "angle", "points": ["A", "B", "P", "Q"] }`。旧版 `faceA` / `faceB` 构造继续读取与显示。依赖点运动至公共直线上或公共直线端点重合时，角度暂不可定义，恢复有效构型后自动显示。
+
+## 样题与数学边界
+
+- 第 2 题展示 `a=1`；“显示”页可选择顶点 A，修改 y 坐标改变高度，中点自动更新。
+- 第 1 题取 `a=1` 且额外取等边底面，展示一组满足原有已知条件的坐标，保留 120° 内二面角。不是原题的唯一构型或解答。
+- 第 4 题问题缺失，示例额外添加平面 GEF，明确用作动态截面演示。
+- 第 3 题缺少必要尺寸和完整问题，暂未据图臆造模型。
+- 多面体支持闭合凸模型；旋转体使用独立解析参数，双圆锥两锥共顶点、方向相反。支持线段动点；凹多面体、任意面动点、非线性约束求解和证明系统未实现。
+- 拖动模型会改变度量关系，原题文字保留为参考；等长、垂直等条件需重新核对，不自动求解维持。
+- AI 图片识别尚未接入。应用不会上传题目或调用模型服务。后续需提供工作组 Agent 地址、认证及接口格式。
+
+截面通过逐棱求交、去重和面内排序得到多边形，包括过顶点、过整棱及与面重合的边界。二面角通过 P、Q 指定的半平面内、垂直于公共直线的两条射线计算，范围为 0°–180°，保留 120° 等钝角。渲染使用 Three.js；几何数据和构造是独立真实数据源。
+
+## 开发
+
+Windows 新安装软件统一放在 `D:\DevDep` 下的 camelCase 软件目录。当前 Node.js：`D:\DevDep\nodeJs\node-v24.22.3-win-x64`；Electron：`D:\DevDep\electron\electron45_4_1`；npm 和打包缓存分别在 `D:\DevDep\npmCache`、`D:\DevDep\electronBuilder`。项目的 `node_modules` 为项目依赖，留在此开发目录。未改机器级 PATH。
+
+双击 `Dev.cmd` 可开发预览；双击 `BuildWindows.cmd` 重新构建发布包。也可以在 PowerShell 执行：
+
+```powershell
+. .\scripts\environment.ps1
+npm ci
+node .\scripts\install-runtime.mjs
+npm test
+npm run dev
+npm run dev:desktop
+npm run build
+npm run test:e2e
+npm run package:win
+npm run test:portable
+```
+
+`dev:desktop` 使用 127.0.0.1:5173，需先结束占用该端口的开发服务器。桌面主进程改动后重新启动。`npm run start` 打开已构建桌面应用。开发脚本绑定本机已有依赖位置；给同事的发布包没有这些依赖路径要求。
+
+`test:e2e` 用本机已有 Chrome 检查前端，并用实际 Electron 检查桌面、鼠标拖动、四种截线、四点球、剪贴板全文及回归边界；不下载浏览器。文件选择对话框由测试驱动提供路径，真实 IPC、文件读写和渲染正常运行。测试输出在 `.qa`，截图在 `docs`。
+
+`test:portable` 启动真实便携 EXE，检查中文路径、仅系统 PATH、离线截线与四点球、内置 Prompt 复制与 ZIP 文件白名单；截图在 `docs/portable-preview-v0.2.1.png`、`docs/portable-double-cone-v0.2.1.png`、`docs/portable-spheres-v0.2.1.png`。已有试用数据不会进入重新生成的 ZIP。
+
+Electron 渲染器禁用 Node，开启 context isolation 和 sandbox；preload 仅暴露受限文件与数据设置接口。主进程校验 IPC 来源，不允许外部窗口、导航和权限请求。凭据不进入工程或发布包。
+
+macOS 构建命令已保留为 `package:mac:arm64`、`package:mac:x64` 和 `package:mac:universal`，须在原生 Mac 构建、测试和签名，尚未执行。macOS 下使用原生 Node/Electron 依赖，不运行本机 Windows 的 environment.ps1。
+
+## 主要文件
+
+- `src/geometry`：本地向量、截面、二面角、依赖编译与样例。
+- `src/schema`：项目格式和几何有效性校验。
+- `src/rendering`：Three.js、相机、拾取、标签与 PNG。
+- `src/store`：几何编辑、依赖删除及撤销/重做。
+- `electron`：沙箱窗口、preload、文件 IPC 和便携数据。
+- `scripts`：开发、构建、交互测试、Windows 发布。
+- `docs/design`：界面参考和试样设计；`docs/validation.md`：验收记录与未验项目。
+
+官方实现资料：[Electron 安全指南](https://www.electronjs.org/docs/latest/tutorial/security)、[上下文隔离](https://www.electronjs.org/docs/latest/tutorial/context-isolation)、[electron-builder Windows portable](https://www.electron.build/nsis.html#portable)。

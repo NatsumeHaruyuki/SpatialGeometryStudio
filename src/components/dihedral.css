@@ -1,0 +1,29 @@
+.scene-labels .point-label.dihedral-axis-point { color: #286ba7; }
+.scene-labels .point-label.dihedral-plane-point { color: #b16c20; }
+.scene-labels .dihedral-line-label,
+.scene-labels .dihedral-plane-label {
+  padding: 4px 7px;
+  border-radius: 4px;
+  background: #f5f8fbde;
+  font: 11px/1.4 "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+.scene-labels .dihedral-line-label { color: #286ba7; }
+.scene-labels .dihedral-plane-label { color: #b16c20; }
+.selection-chips button.selected.dihedral-axis-point {
+  color: #286ba7;
+  background: #e7f1fb;
+  border-color: #78a7d3;
+}
+.selection-chips button.selected.dihedral-plane-point {
+  color: #a86417;
+  background: #fff0db;
+  border-color: #dda057;
+}
+.dihedral-selection-key { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 10px; font-size: 11px; }
+.dihedral-axis-key { color: #286ba7; }
+.dihedral-plane-key { color: #a86417; }
+.dihedral-selection-key small { flex-basis: 100%; color: #7e919f; line-height: 1.6; }
+.tool-instruction.dihedral-instruction { flex-wrap: wrap; }
+.tool-instruction.dihedral-instruction > span { flex: 1 1 240px; line-height: 1.7; }
+.tool-instruction.dihedral-instruction > small,
+.tool-instruction.dihedral-instruction > button { flex-shrink: 0; }

@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "id": "doubleCone",
+  "title": "双圆锥 · 圆锥曲线",
+  "problem": {
+    "text": "两个共顶点、方向相反的圆锥。改变截平面的倾角与位置，观察圆、椭圆、抛物线和双曲线。",
+    "conditions": [
+      "初始半径 1.8",
+      "每个锥体或柱体高 3"
+    ],
+    "note": "O 为原点/锥顶控制点，T 控制轴向与高度，圆周点控制半径。模型显示为有限高度；开放曲线在模型边界截断。"
+  },
+  "solid": {
+    "id": "doubleCone",
+    "type": "双圆锥",
+    "primitive": {
+      "kind": "doubleCone",
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "radius": 1.8,
+      "height": 3
+    },
+    "points": [
+      {
+        "id": "O",
+        "label": "O",
+        "position": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "T",
+        "label": "T",
+        "position": [
+          0,
+          3,
+          0
+        ]
+      },
+      {
+        "id": "A",
+        "label": "A",
+        "position": [
+          1.8,
+          3,
+          0
+        ]
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "position": [
+          0,
+          3,
+          1.8
+        ]
+      },
+      {
+        "id": "C",
+        "label": "C",
+        "position": [
+          -1.8,
+          3,
+          0
+        ]
+      },
+      {
+        "id": "T2",
+        "label": "T₂",
+        "position": [
+          0,
+          -3,
+          0
+        ]
+      },
+      {
+        "id": "A2",
+        "label": "A₂",
+        "position": [
+          1.8,
+          -3,
+          0
+        ]
+      },
+      {
+        "id": "B2",
+        "label": "B₂",
+        "position": [
+          0,
+          -3,
+          1.8
+        ]
+      }
+    ],
+    "edges": [],
+    "faces": []
+  },
+  "constructions": [
+    {
+      "id": "teaching-section",
+      "kind": "planeSection",
+      "normal": [
+        0.9659258262890683,
+        0.25881904510252074,
+        0
+      ],
+      "origin": [
+        0.48296291314453416,
+        0.12940952255126037,
+        0
+      ]
+    }
+  ],
+  "display": {
+    "grid": true,
+    "labels": true,
+    "faces": true,
+    "sectionPlane": true,
+    "hiddenEdges": true
+  },
+  "view": {
+    "position": [
+      11,
+      5,
+      14
+    ],
+    "target": [
+      0,
+      0,
+      0
+    ]
+  },
+  "uncertainties": []
+}

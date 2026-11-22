@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "id": "tetrahedronSpheres",
+  "title": "四面体 · 外接球与内切球",
+  "problem": {
+    "text": "四个不共面的点 A、B、C、D 确定四面体。蓝色外接球经过四个顶点，金色内切球与四个面相切。",
+    "conditions": [
+      "球属于所选的四点四面体",
+      "初始底面 BCD 为边长2的等边三角形"
+    ],
+    "note": "拖动顶点可观察两个球更新。球心标记为 Oₛ₁、Oₛ₂，R 为半径；并非对其他当前整体模型求球。"
+  },
+  "solid": {
+    "id": "tetrahedron",
+    "type": "三棱锥",
+    "points": [
+      {
+        "id": "A",
+        "label": "A",
+        "position": [
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "position": [
+          -1,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "C",
+        "label": "C",
+        "position": [
+          0,
+          0,
+          1.7320508075688772
+        ]
+      },
+      {
+        "id": "D",
+        "label": "D",
+        "position": [
+          1,
+          0,
+          0
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "id": "B-C",
+        "start": "B",
+        "end": "C"
+      },
+      {
+        "id": "C-D",
+        "start": "C",
+        "end": "D"
+      },
+      {
+        "id": "B-D",
+        "start": "D",
+        "end": "B"
+      },
+      {
+        "id": "A-D",
+        "start": "D",
+        "end": "A"
+      },
+      {
+        "id": "A-B",
+        "start": "A",
+        "end": "B"
+      },
+      {
+        "id": "A-C",
+        "start": "A",
+        "end": "C"
+      }
+    ],
+    "faces": [
+      {
+        "id": "BCD",
+        "label": "BCD",
+        "vertices": [
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "id": "ABD",
+        "label": "ADB",
+        "vertices": [
+          "A",
+          "D",
+          "B"
+        ]
+      },
+      {
+        "id": "ABC",
+        "label": "ABC",
+        "vertices": [
+          "A",
+          "B",
+          "C"
+        ]
+      },
+      {
+        "id": "ACD",
+        "label": "ACD",
+        "vertices": [
+          "A",
+          "C",
+          "D"
+        ]
+      }
+    ]
+  },
+  "constructions": [
+    {
+      "id": "outer-sphere",
+      "kind": "circumsphere",
+      "points": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "inner-sphere",
+      "kind": "insphere",
+      "points": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    }
+  ],
+  "display": {
+    "grid": true,
+    "labels": true,
+    "faces": true,
+    "sectionPlane": true,
+    "hiddenEdges": true
+  },
+  "view": {
+    "position": [
+      4.8,
+      3.6,
+      -5.3
+    ],
+    "target": [
+      0,
+      0.2,
+      0.5
+    ]
+  },
+  "uncertainties": []
+}

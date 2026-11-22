@@ -1,0 +1,53 @@
+.json-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.json-dialog .dialog-header {
+  display: grid;
+  flex: none;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+}
+
+.json-dialog .dialog-body {
+  min-height: 0;
+}
+
+.prompt-copy {
+  grid-column: 1 / -1;
+}
+
+.prompt-copy-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+}
+
+.prompt-copy-error {
+  color: #ae5d51;
+  font-size: 12px;
+}
+
+.prompt-copy-fallback {
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.prompt-copy-fallback summary {
+  color: var(--accent-dark);
+  cursor: pointer;
+}
+
+.prompt-copy-fallback .json-input {
+  display: block;
+  height: clamp(64px, 15dvh, 112px);
+  margin-top: 8px;
+  resize: none;
+}
+
+.prompt-copy-steps {
+  margin: 0 0 12px;
+  padding-inline-start: 20px;
+}

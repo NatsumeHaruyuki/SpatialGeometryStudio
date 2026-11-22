@@ -1,0 +1,13 @@
+旋转体解析几何模块
+
+src/geometry/roundSolids.ts 导出 RoundPrimitive、roundFrame、roundControlPoints、moveRoundControl 和 sectionRound。唯一跨模块引用为场景的 Vec3 和 Point 类型。
+
+roundFrame 返回单位轴及两个径向单位向量 u、v。roundControlPoints 按规定生成带 ASCII ID 和下标标签的中心与圆周控制点。moveRoundControl 返回新的几何参数。O 平移，T 和 T2 修改轴向及高度，圆周控制点按与轴线的垂距修改半径。坐标限于 ±10000，半径和高度在 0.0001 至 10000 之间。不可用的控制点或数值会抛出错误。
+
+sectionRound 将截平面写成 s*x+c*y=d，在含轴的子午面中精确求有限高度的横坐标区间，再由侧面方程恢复 z 的正负分支。双圆锥的上下两叶分别裁剪。圆和椭圆的完整闭环提供解析面积。曲线以世界坐标采样，closed 数组与 curves 一一对应，闭环的首点只存储一次。孤立交点用一个采样点表示。跨两叶的相交直线由两条母线线段表示。
+
+侧面截线在端盖边缘结束。开曲线不附加端盖弦，area 为 null。圆锥曲线类型描述当前解析侧面的截线类型，能看到的有限段数另由 curves 表示。同一平面仅接触双圆锥两个端缘时，类型为“两点”。
+
+专项测试先于模块编写。首次因模块不存在失败，附加的三项边界修正也先复现失败。最终 npm.cmd test -- src/geometry/roundSolids.test.ts 于 06:33 通过 11/11。测试逐点验证截平面、隐式曲面和轴向范围，覆盖旋转和平移、闭合面积、开弧端点、双曲线分支、圆锥顶点退化、圆柱竖截面及相切。
+
+并行集成期间同一时间运行全套 npm.cmd test，66/71 通过。其余五项位于 teaching.test.ts，为四棱锥、圆柱、圆锥、双圆锥的预设往返和双圆锥初始双曲线截面。该次运行时这些示例尚未接入。06:32 的全项目类型检查仅在 Inspector.tsx 和 teaching.test.ts 报错，涉及 planeSection、可空面积及预设 ID。主集成负责最终全套验证。

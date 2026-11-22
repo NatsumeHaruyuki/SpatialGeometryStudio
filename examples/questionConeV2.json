@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "title": "圆锥·题目点优先导入",
+  "solid": {
+    "type": "cone",
+    "points": [
+      {
+        "id": "D",
+        "position": [
+          0,
+          1.7320508075688772,
+          0
+        ]
+      },
+      {
+        "id": "O",
+        "position": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "A",
+        "position": [
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "B",
+        "position": [
+          -0.5,
+          0,
+          0.8660254037844386
+        ]
+      },
+      {
+        "id": "C",
+        "position": [
+          -0.5,
+          0,
+          -0.8660254037844386
+        ]
+      },
+      {
+        "id": "E",
+        "position": [
+          -1,
+          0,
+          0
+        ]
+      }
+    ],
+    "primitive": {
+      "kind": "cone",
+      "apex": "D",
+      "baseCenter": "O",
+      "radiusPoint": "A"
+    }
+  },
+  "constructions": [
+    {
+      "kind": "movingPoint",
+      "point": "P",
+      "start": "O",
+      "end": "D",
+      "t": 0.408248290463863
+    },
+    {
+      "kind": "segment",
+      "a": "A",
+      "b": "E"
+    },
+    {
+      "kind": "segment",
+      "a": "A",
+      "b": "B"
+    },
+    {
+      "kind": "segment",
+      "a": "B",
+      "b": "C"
+    },
+    {
+      "kind": "segment",
+      "a": "C",
+      "b": "A"
+    },
+    {
+      "kind": "segment",
+      "a": "P",
+      "b": "A"
+    },
+    {
+      "kind": "segment",
+      "a": "P",
+      "b": "B"
+    },
+    {
+      "kind": "segment",
+      "a": "P",
+      "b": "C"
+    },
+    {
+      "kind": "segment",
+      "a": "P",
+      "b": "E"
+    },
+    {
+      "kind": "segment",
+      "a": "P",
+      "b": "O"
+    },
+    {
+      "kind": "triangle",
+      "points": [
+        "A",
+        "B",
+        "C"
+      ]
+    }
+  ]
+}

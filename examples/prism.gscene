@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "id": "prism",
+  "title": "斜三棱柱 · 120° 二面角",
+  "problem": {
+    "text": "斜三棱柱 ABC-A₁B₁C₁，∠A₁AB = ∠A₁AC，AB = AC，A₁A = A₁B = a。侧面 B₁BCC₁ 与底面 ABC 所成的二面角为 120°，E、F 分别为 B₁C₁、A₁A 的中点。",
+    "conditions": [
+      "二面角为 120°",
+      "E、F 为中点",
+      "当前取 a = 1"
+    ],
+    "note": "来自 test.md 第 1 题。示意额外取底面等边；这是一组满足已知条件的坐标，不代表原题唯一构型。"
+  },
+  "solid": {
+    "id": "prism",
+    "type": "斜三棱柱",
+    "points": [
+      {
+        "id": "A",
+        "label": "A",
+        "position": [
+          0,
+          0,
+          0.75
+        ]
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "position": [
+          -0.4330127018922193,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "C",
+        "label": "C",
+        "position": [
+          0.4330127018922193,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "A1",
+        "label": "A₁",
+        "position": [
+          0,
+          0.8660254037844386,
+          0.25
+        ]
+      },
+      {
+        "id": "B1",
+        "label": "B₁",
+        "position": [
+          -0.4330127018922193,
+          0.8660254037844386,
+          -0.5
+        ]
+      },
+      {
+        "id": "C1",
+        "label": "C₁",
+        "position": [
+          0.4330127018922193,
+          0.8660254037844386,
+          -0.5
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "id": "A-B",
+        "start": "B",
+        "end": "A"
+      },
+      {
+        "id": "B-C",
+        "start": "C",
+        "end": "B"
+      },
+      {
+        "id": "A-C",
+        "start": "A",
+        "end": "C"
+      },
+      {
+        "id": "A1-C1",
+        "start": "C1",
+        "end": "A1"
+      },
+      {
+        "id": "B1-C1",
+        "start": "B1",
+        "end": "C1"
+      },
+      {
+        "id": "A1-B1",
+        "start": "A1",
+        "end": "B1"
+      },
+      {
+        "id": "A-A1",
+        "start": "A1",
+        "end": "A"
+      },
+      {
+        "id": "B-B1",
+        "start": "B",
+        "end": "B1"
+      },
+      {
+        "id": "C-C1",
+        "start": "C",
+        "end": "C1"
+      }
+    ],
+    "faces": [
+      {
+        "id": "base",
+        "label": "ABC",
+        "vertices": [
+          "A",
+          "B",
+          "C"
+        ]
+      },
+      {
+        "id": "top",
+        "label": "A₁C₁B₁",
+        "vertices": [
+          "A1",
+          "C1",
+          "B1"
+        ]
+      },
+      {
+        "id": "sideAB",
+        "label": "AA₁B₁B",
+        "vertices": [
+          "A",
+          "A1",
+          "B1",
+          "B"
+        ]
+      },
+      {
+        "id": "sideBC",
+        "label": "BB₁C₁C",
+        "vertices": [
+          "B",
+          "B1",
+          "C1",
+          "C"
+        ]
+      },
+      {
+        "id": "sideCA",
+        "label": "CC₁A₁A",
+        "vertices": [
+          "C",
+          "C1",
+          "A1",
+          "A"
+        ]
+      }
+    ]
+  },
+  "constructions": [
+    {
+      "id": "mid-E",
+      "kind": "midpoint",
+      "point": "E",
+      "label": "E",
+      "a": "B1",
+      "b": "C1"
+    },
+    {
+      "id": "mid-F",
+      "kind": "midpoint",
+      "point": "F",
+      "label": "F",
+      "a": "A1",
+      "b": "A"
+    },
+    {
+      "id": "line-A1E",
+      "kind": "segment",
+      "a": "A1",
+      "b": "E"
+    },
+    {
+      "id": "line-FC",
+      "kind": "segment",
+      "a": "F",
+      "b": "C"
+    },
+    {
+      "id": "line-FB1",
+      "kind": "segment",
+      "a": "F",
+      "b": "B1"
+    },
+    {
+      "id": "angle",
+      "kind": "dihedral",
+      "faceA": "base",
+      "faceB": "sideBC"
+    }
+  ],
+  "display": {
+    "grid": true,
+    "labels": true,
+    "faces": true,
+    "sectionPlane": true,
+    "hiddenEdges": true
+  },
+  "view": {
+    "position": [
+      2.7,
+      1.9,
+      -3.7
+    ],
+    "target": [
+      0,
+      0.35,
+      0.12
+    ]
+  },
+  "uncertainties": [
+    "底面等边是本示意的额外取值，原题仅给出 AB=AC。"
+  ]
+}

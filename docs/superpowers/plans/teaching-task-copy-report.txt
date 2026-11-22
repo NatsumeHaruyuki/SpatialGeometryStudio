@@ -1,0 +1,5 @@
+JSON 对话框顶部新增「一键复制 Prompt」，滚动 JSON 编辑区时仍可点击。对话框内说明如何复制 Prompt、在外部 Agent 中提交题图和 Prompt，以及粘贴返回的 JSON 并校验导入。
+
+桌面版调用 window.studio.copyPrompt()，网页通过 Vite ?raw 读取完整的 prompts/multimodalToGsceneV1.txt 并写入浏览器剪贴板。复制期间按钮禁用，操作完成后显示结果。若复制失败，可展开只读全文并手动复制。原有 JSON 编辑、导出和校验导入使用原处理逻辑。
+
+本次运行 tsc --noEmit 时，桌面 copyPrompt 类型声明及并行开发的几何模块仍待集成，项目类型检查未通过。界面点击与系统剪贴板全文比对由主代理在集成后执行。

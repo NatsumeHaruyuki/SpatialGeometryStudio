@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "id": "cube",
+  "title": "正方体 · 截面探究",
+  "problem": {
+    "text": "在正方体 ABCD-A₁B₁C₁D₁ 中，M、N 分别为棱 A₁D₁、C₁D₁ 的中点，点 P 在线段 AB 上运动。探究平面 MNP 截正方体所得截面图形及其性质。",
+    "conditions": [
+      "棱长为 2",
+      "M、N 为两条上棱的中点",
+      "P ∈ AB，0 ≤ t ≤ 1"
+    ],
+    "note": "拖动底部滑块，观察真实截面及面积变化。"
+  },
+  "solid": {
+    "id": "cube",
+    "type": "正方体",
+    "points": [
+      {
+        "id": "A",
+        "label": "A",
+        "position": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "position": [
+          2,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "C",
+        "label": "C",
+        "position": [
+          2,
+          0,
+          -2
+        ]
+      },
+      {
+        "id": "D",
+        "label": "D",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "id": "A1",
+        "label": "A₁",
+        "position": [
+          0,
+          2,
+          0
+        ]
+      },
+      {
+        "id": "B1",
+        "label": "B₁",
+        "position": [
+          2,
+          2,
+          0
+        ]
+      },
+      {
+        "id": "C1",
+        "label": "C₁",
+        "position": [
+          2,
+          2,
+          -2
+        ]
+      },
+      {
+        "id": "D1",
+        "label": "D₁",
+        "position": [
+          0,
+          2,
+          -2
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "id": "A-B",
+        "start": "B",
+        "end": "A"
+      },
+      {
+        "id": "B-C",
+        "start": "C",
+        "end": "B"
+      },
+      {
+        "id": "C-D",
+        "start": "D",
+        "end": "C"
+      },
+      {
+        "id": "A-D",
+        "start": "A",
+        "end": "D"
+      },
+      {
+        "id": "A1-D1",
+        "start": "D1",
+        "end": "A1"
+      },
+      {
+        "id": "C1-D1",
+        "start": "C1",
+        "end": "D1"
+      },
+      {
+        "id": "B1-C1",
+        "start": "B1",
+        "end": "C1"
+      },
+      {
+        "id": "A1-B1",
+        "start": "A1",
+        "end": "B1"
+      },
+      {
+        "id": "A-A1",
+        "start": "A1",
+        "end": "A"
+      },
+      {
+        "id": "B-B1",
+        "start": "B",
+        "end": "B1"
+      },
+      {
+        "id": "C-C1",
+        "start": "C",
+        "end": "C1"
+      },
+      {
+        "id": "D-D1",
+        "start": "D",
+        "end": "D1"
+      }
+    ],
+    "faces": [
+      {
+        "id": "bottom",
+        "label": "ABCD",
+        "vertices": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "id": "top",
+        "label": "A₁D₁C₁B₁",
+        "vertices": [
+          "A1",
+          "D1",
+          "C1",
+          "B1"
+        ]
+      },
+      {
+        "id": "front",
+        "label": "AA₁B₁B",
+        "vertices": [
+          "A",
+          "A1",
+          "B1",
+          "B"
+        ]
+      },
+      {
+        "id": "right",
+        "label": "BB₁C₁C",
+        "vertices": [
+          "B",
+          "B1",
+          "C1",
+          "C"
+        ]
+      },
+      {
+        "id": "back",
+        "label": "CC₁D₁D",
+        "vertices": [
+          "C",
+          "C1",
+          "D1",
+          "D"
+        ]
+      },
+      {
+        "id": "left",
+        "label": "DD₁A₁A",
+        "vertices": [
+          "D",
+          "D1",
+          "A1",
+          "A"
+        ]
+      }
+    ]
+  },
+  "constructions": [
+    {
+      "id": "mid-M",
+      "kind": "midpoint",
+      "point": "M",
+      "label": "M",
+      "a": "A1",
+      "b": "D1"
+    },
+    {
+      "id": "mid-N",
+      "kind": "midpoint",
+      "point": "N",
+      "label": "N",
+      "a": "C1",
+      "b": "D1"
+    },
+    {
+      "id": "motion-P",
+      "kind": "movingPoint",
+      "point": "P",
+      "label": "P",
+      "start": "A",
+      "end": "B",
+      "t": 0.5
+    },
+    {
+      "id": "section-MNP",
+      "kind": "section",
+      "points": [
+        "M",
+        "N",
+        "P"
+      ]
+    }
+  ],
+  "display": {
+    "grid": true,
+    "labels": true,
+    "faces": true,
+    "sectionPlane": true,
+    "hiddenEdges": true
+  },
+  "view": {
+    "position": [
+      5,
+      4,
+      5
+    ],
+    "target": [
+      1,
+      0.95,
+      -1
+    ]
+  },
+  "uncertainties": []
+}

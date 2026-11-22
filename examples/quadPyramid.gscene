@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "id": "quadPyramid",
+  "title": "四棱锥 · 顶点与截面",
+  "problem": {
+    "text": "四棱锥 P-ABCD，初始底面为正方形，P 在底面上方。选择“调整顶点”后拖动锥顶或底面点，观察构造随模型更新。",
+    "conditions": [
+      "初始底面边长 2",
+      "初始高 2.5"
+    ],
+    "note": "底面点在底平面内移动，锥顶可以自由调整。题设的额外等长或垂直关系不自动维持。"
+  },
+  "solid": {
+    "id": "quadPyramid",
+    "type": "四棱锥",
+    "points": [
+      {
+        "id": "A",
+        "label": "A",
+        "position": [
+          -1,
+          0,
+          1
+        ]
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "position": [
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "id": "C",
+        "label": "C",
+        "position": [
+          1,
+          0,
+          -1
+        ]
+      },
+      {
+        "id": "D",
+        "label": "D",
+        "position": [
+          -1,
+          0,
+          -1
+        ]
+      },
+      {
+        "id": "P",
+        "label": "P",
+        "position": [
+          0,
+          2.5,
+          0
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "id": "A-B",
+        "start": "A",
+        "end": "B"
+      },
+      {
+        "id": "B-C",
+        "start": "B",
+        "end": "C"
+      },
+      {
+        "id": "C-D",
+        "start": "C",
+        "end": "D"
+      },
+      {
+        "id": "A-D",
+        "start": "D",
+        "end": "A"
+      },
+      {
+        "id": "A-P",
+        "start": "A",
+        "end": "P"
+      },
+      {
+        "id": "B-P",
+        "start": "P",
+        "end": "B"
+      },
+      {
+        "id": "C-P",
+        "start": "P",
+        "end": "C"
+      },
+      {
+        "id": "D-P",
+        "start": "P",
+        "end": "D"
+      }
+    ],
+    "faces": [
+      {
+        "id": "base",
+        "label": "ABCD",
+        "vertices": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "id": "PAB",
+        "label": "PAB",
+        "vertices": [
+          "P",
+          "A",
+          "B"
+        ]
+      },
+      {
+        "id": "PBC",
+        "label": "PBC",
+        "vertices": [
+          "P",
+          "B",
+          "C"
+        ]
+      },
+      {
+        "id": "PCD",
+        "label": "PCD",
+        "vertices": [
+          "P",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "id": "PDA",
+        "label": "PDA",
+        "vertices": [
+          "P",
+          "D",
+          "A"
+        ]
+      }
+    ]
+  },
+  "constructions": [],
+  "display": {
+    "grid": true,
+    "labels": true,
+    "faces": true,
+    "sectionPlane": true,
+    "hiddenEdges": true
+  },
+  "view": {
+    "position": [
+      5,
+      4,
+      6
+    ],
+    "target": [
+      0,
+      1,
+      0
+    ]
+  },
+  "uncertainties": []
+}

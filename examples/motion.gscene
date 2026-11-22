@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "id": "motion",
+  "title": "五棱锥 · 动点与截面",
+  "problem": {
+    "text": "几何体 A-BCDEF 中，AB ⊥ 平面 BCDEF，四边形 BCEF 为边长为 2 的正方形，AB = 2，CD = DE = √2。动点 G 在线段 AC 上运动。",
+    "conditions": [
+      "AB = 2，BC = CE = EF = FB = 2",
+      "CD = DE = √2",
+      "G ∈ AC"
+    ],
+    "note": "来自 test.md 第 4 题，原题问题未完整给出。此处额外构造平面 GEF，用于动态截面演示。"
+  },
+  "solid": {
+    "id": "motion",
+    "type": "五棱锥",
+    "points": [
+      {
+        "id": "A",
+        "label": "A",
+        "position": [
+          0,
+          2,
+          0
+        ]
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "position": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "C",
+        "label": "C",
+        "position": [
+          2,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "D",
+        "label": "D",
+        "position": [
+          3,
+          0,
+          1
+        ]
+      },
+      {
+        "id": "E",
+        "label": "E",
+        "position": [
+          2,
+          0,
+          2
+        ]
+      },
+      {
+        "id": "F",
+        "label": "F",
+        "position": [
+          0,
+          0,
+          2
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "id": "B-C",
+        "start": "B",
+        "end": "C"
+      },
+      {
+        "id": "C-D",
+        "start": "C",
+        "end": "D"
+      },
+      {
+        "id": "D-E",
+        "start": "D",
+        "end": "E"
+      },
+      {
+        "id": "E-F",
+        "start": "E",
+        "end": "F"
+      },
+      {
+        "id": "B-F",
+        "start": "F",
+        "end": "B"
+      },
+      {
+        "id": "A-B",
+        "start": "B",
+        "end": "A"
+      },
+      {
+        "id": "A-C",
+        "start": "A",
+        "end": "C"
+      },
+      {
+        "id": "A-D",
+        "start": "A",
+        "end": "D"
+      },
+      {
+        "id": "A-E",
+        "start": "A",
+        "end": "E"
+      },
+      {
+        "id": "A-F",
+        "start": "A",
+        "end": "F"
+      }
+    ],
+    "faces": [
+      {
+        "id": "base",
+        "label": "BCDEF",
+        "vertices": [
+          "B",
+          "C",
+          "D",
+          "E",
+          "F"
+        ]
+      },
+      {
+        "id": "ABC",
+        "label": "ABC",
+        "vertices": [
+          "A",
+          "B",
+          "C"
+        ]
+      },
+      {
+        "id": "ACD",
+        "label": "ACD",
+        "vertices": [
+          "A",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "id": "ADE",
+        "label": "ADE",
+        "vertices": [
+          "A",
+          "D",
+          "E"
+        ]
+      },
+      {
+        "id": "AEF",
+        "label": "AEF",
+        "vertices": [
+          "A",
+          "E",
+          "F"
+        ]
+      },
+      {
+        "id": "AFB",
+        "label": "AFB",
+        "vertices": [
+          "A",
+          "F",
+          "B"
+        ]
+      }
+    ]
+  },
+  "constructions": [
+    {
+      "id": "motion-G",
+      "kind": "movingPoint",
+      "point": "G",
+      "label": "G",
+      "start": "A",
+      "end": "C",
+      "t": 0.5
+    },
+    {
+      "id": "section-GEF",
+      "kind": "section",
+      "points": [
+        "G",
+        "E",
+        "F"
+      ]
+    }
+  ],
+  "display": {
+    "grid": true,
+    "labels": true,
+    "faces": true,
+    "sectionPlane": true,
+    "hiddenEdges": true
+  },
+  "view": {
+    "position": [
+      6.5,
+      4.2,
+      -6.5
+    ],
+    "target": [
+      1,
+      0.8,
+      0.8
+    ]
+  },
+  "uncertainties": [
+    "原题问题缺失，平面 GEF 是演示用的额外构造。"
+  ]
+}

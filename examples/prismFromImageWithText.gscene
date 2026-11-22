@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "id": "prismFromImageWithText",
+  "title": "图示斜三棱柱 · 原题文字条件示例",
+  "problem": {
+    "text": "斜三棱柱 ABC-A₁B₁C₁，∠A₁AB = ∠A₁AC，AB = AC，A₁A = A₁B = a。侧面 B₁BCC₁ 与底面 ABC 所成的二面角为 120°，E、F 分别为 B₁C₁、A₁A 的中点。",
+    "conditions": [
+      "二面角为 120°",
+      "E、F 为中点",
+      "当前取 a = 1"
+    ],
+    "note": "结合本项目 test.md 第1题的完整文字条件生成，并非仅凭当前截图确定。归一化取 a=1，额外取底面等边，仅是一组满足已知条件的示意构型。辅助线线型采用试样预设，不能与截图逐线完全一致。"
+  },
+  "solid": {
+    "id": "prism",
+    "type": "斜三棱柱",
+    "points": [
+      {
+        "id": "A",
+        "label": "A",
+        "position": [
+          0,
+          0,
+          0.75
+        ]
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "position": [
+          -0.4330127018922193,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "C",
+        "label": "C",
+        "position": [
+          0.4330127018922193,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "A1",
+        "label": "A₁",
+        "position": [
+          0,
+          0.8660254037844386,
+          0.25
+        ]
+      },
+      {
+        "id": "B1",
+        "label": "B₁",
+        "position": [
+          -0.4330127018922193,
+          0.8660254037844386,
+          -0.5
+        ]
+      },
+      {
+        "id": "C1",
+        "label": "C₁",
+        "position": [
+          0.4330127018922193,
+          0.8660254037844386,
+          -0.5
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "id": "A-B",
+        "start": "B",
+        "end": "A"
+      },
+      {
+        "id": "B-C",
+        "start": "C",
+        "end": "B"
+      },
+      {
+        "id": "A-C",
+        "start": "A",
+        "end": "C"
+      },
+      {
+        "id": "A1-C1",
+        "start": "C1",
+        "end": "A1"
+      },
+      {
+        "id": "B1-C1",
+        "start": "B1",
+        "end": "C1"
+      },
+      {
+        "id": "A1-B1",
+        "start": "A1",
+        "end": "B1"
+      },
+      {
+        "id": "A-A1",
+        "start": "A1",
+        "end": "A"
+      },
+      {
+        "id": "B-B1",
+        "start": "B",
+        "end": "B1"
+      },
+      {
+        "id": "C-C1",
+        "start": "C",
+        "end": "C1"
+      }
+    ],
+    "faces": [
+      {
+        "id": "base",
+        "label": "ABC",
+        "vertices": [
+          "A",
+          "B",
+          "C"
+        ]
+      },
+      {
+        "id": "top",
+        "label": "A₁C₁B₁",
+        "vertices": [
+          "A1",
+          "C1",
+          "B1"
+        ]
+      },
+      {
+        "id": "sideAB",
+        "label": "AA₁B₁B",
+        "vertices": [
+          "A",
+          "A1",
+          "B1",
+          "B"
+        ]
+      },
+      {
+        "id": "sideBC",
+        "label": "BB₁C₁C",
+        "vertices": [
+          "B",
+          "B1",
+          "C1",
+          "C"
+        ]
+      },
+      {
+        "id": "sideCA",
+        "label": "CC₁A₁A",
+        "vertices": [
+          "C",
+          "C1",
+          "A1",
+          "A"
+        ]
+      }
+    ]
+  },
+  "constructions": [
+    {
+      "id": "mid-E",
+      "kind": "midpoint",
+      "point": "E",
+      "label": "E",
+      "a": "B1",
+      "b": "C1"
+    },
+    {
+      "id": "mid-F",
+      "kind": "midpoint",
+      "point": "F",
+      "label": "F",
+      "a": "A1",
+      "b": "A"
+    },
+    {
+      "id": "line-A1E",
+      "kind": "segment",
+      "a": "A1",
+      "b": "E"
+    },
+    {
+      "id": "line-FC",
+      "kind": "segment",
+      "a": "F",
+      "b": "C"
+    },
+    {
+      "id": "line-FB1",
+      "kind": "segment",
+      "a": "F",
+      "b": "B1"
+    },
+    {
+      "id": "line-AB1",
+      "kind": "segment",
+      "a": "A",
+      "b": "B1"
+    }
+  ],
+  "display": {
+    "grid": false,
+    "labels": true,
+    "faces": false,
+    "sectionPlane": false,
+    "hiddenEdges": true
+  },
+  "view": {
+    "position": [
+      2.7,
+      1.9,
+      -3.7
+    ],
+    "target": [
+      0,
+      0.35,
+      0.12
+    ]
+  },
+  "uncertainties": [
+    "中点和120度条件来自项目已有完整题干，不能仅由本次截图证明。",
+    "额外选择底面等边，原题只明确AB=AC；当前坐标不是唯一构型。",
+    "对角虚线按截图暂识别为AB1，与旧文字摘要中的A1B不同，需清晰原图复核。",
+    "底部前方点的标注未完整显示，暂按三棱柱结构记为C。"
+  ]
+}
