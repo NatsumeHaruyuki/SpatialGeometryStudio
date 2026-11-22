@@ -43,7 +43,8 @@ if (platform === 'win32') {
   const bundle = path.join(folder, 'SpatialGeometryStudio.app');
   const binary = execFileSync('/usr/libexec/PlistBuddy', ['-c', 'Print :CFBundleExecutable', path.join(bundle, 'Contents', 'Info.plist')], { encoding: 'utf8' }).trim();
   executable = path.join(bundle, 'Contents', 'MacOS', binary);
-  execFileSync('/usr/bin/lipo', ['-verify_arch', values.arch, executable]);
+  const architectures = values.arch === 'universal' ? ['arm64', 'x86_64'] : [values.arch === 'x64' ? 'x86_64' : values.arch];
+  execFileSync('/usr/bin/lipo', [executable, '-verify_arch', ...architectures]);
   execFileSync('/usr/bin/codesign', ['--verify', '--deep', '--strict', bundle]);
   await access(path.join(bundle, 'Contents', 'Resources', 'app.asar'));
 }
