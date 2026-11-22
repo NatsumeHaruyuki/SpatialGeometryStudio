@@ -8,7 +8,7 @@ import path from 'node:path';
 import { parseArgs } from 'node:util';
 import { chromium } from 'playwright';
 
-const { values } = parseArgs({ options: { arch: { type: 'string', default: process.arch } } });
+const { values } = parseArgs({ options: { arch: { type: 'string', default: process.arch }, 'software-rendering': { type: 'boolean', default: false } } });
 const platform = process.platform;
 assert.ok(['win32', 'darwin'].includes(platform), 'Run on a native Windows or macOS host');
 const { version } = JSON.parse(await readFile('package.json', 'utf8'));
@@ -56,7 +56,8 @@ const port = server.address().port;
 await new Promise(resolve => server.close(resolve));
 const env = { ...process.env, PATH: platform === 'win32' ? `${process.env.SystemRoot}\\System32` : '/usr/bin:/bin:/usr/sbin:/sbin', SGS_USER_DATA_ROOT: path.join(testRoot, 'profile') };
 for (const key of ['ELECTRON_OVERRIDE_DIST_PATH', 'ELECTRON_RUN_AS_NODE', 'SGS_DEV_SERVER', 'SGS_DATA_ROOT', 'SGS_SAMPLE', 'PORTABLE_EXECUTABLE_DIR']) delete env[key];
-const launcher = spawn(executable, [`--remote-debugging-port=${port}`], { cwd: folder, env, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
+const graphicsArgs = values['software-rendering'] ? ['--use-gl=angle', '--use-angle=swiftshader'] : [];
+const launcher = spawn(executable, [`--remote-debugging-port=${port}`, ...graphicsArgs], { cwd: folder, env, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
 let output = '';
 launcher.stdout.on('data', chunk => { output = (output + chunk).slice(-16000); });
 launcher.stderr.on('data', chunk => { output = (output + chunk).slice(-16000); });
@@ -81,6 +82,12 @@ try {
   page.on('console', message => { if (message.type() === 'error') console.error('Renderer console:', message.text()); });
   page.on('dialog', dialog => dialog.accept());
   await page.waitForSelector('.point-label');
+  console.log('WebGL renderer:', await page.evaluate(() => {
+    const gl = document.querySelector('canvas')?.getContext('webgl2');
+    if (!gl) return '(unavailable)';
+    const extension = gl.getExtension('WEBGL_debug_renderer_info');
+    return gl.getParameter(extension ? extension.UNMASKED_RENDERER_WEBGL : gl.RENDERER);
+  }));
   assert.ok(page.url().includes('app.asar'), 'Must load packaged sources');
   assert.equal(await page.evaluate(() => typeof window.require), 'undefined');
   assert.match(await page.locator('.status-bar').innerText(), new RegExp(`${label} v0\\.2`));

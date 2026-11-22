@@ -88,6 +88,8 @@ Electron 渲染器禁用 Node，开启 context isolation 和 sandbox；preload �
 
 `.github/workflows/desktop-builds.yml` 在 main 推送及手动运行时构建 Mac 包。ZIP 包含完整运行时、示例、说明和记录源码提交的 `version.json`，旁边提供 SHA256 文件。Actions 制品保留 30 天，可从仓库 Actions 页重新运行工作流生成。
 
+Intel runner 的虚拟图形驱动无法创建 WebGL，CI 的 x64 启动验证显式使用 SwiftShader 软件图形后端，仍执行三维构造、截线、双球和导入检查；这项设置仅在测试启动参数中生效，交付应用默认使用系统图形后端。Apple 芯片 runner 使用默认后端。个人 Mac 的具体 GPU 兼容性仍需实机验收。
+
 ## 主要文件
 
 - `src/geometry`：本地向量、截面、二面角、依赖编译与样例。
