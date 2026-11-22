@@ -84,11 +84,11 @@ npm run test:distribution -- --arch x64
 
 Electron 渲染器禁用 Node，开启 context isolation 和 sandbox；preload 仅暴露受限文件与数据设置接口。主进程校验 IPC 来源，不允许外部窗口、导航和权限请求。凭据不进入工程或发布包。
 
-原生 macOS 构建使用 Node.js 24：执行 `npm ci`、`npm test`、`npm run package:mac:arm64`（或 `package:mac:x64`），再执行 `npm run test:distribution -- --arch arm64`（或 x64）。不运行 Windows 的 environment.ps1 或 install-runtime.mjs。`package:mac:universal` 另有保留，Actions 默认分别生成两种原生架构，不依赖 Rosetta。
+macOS 构建使用 Node.js 24：执行 `npm ci`、`npm test`、`npm run package:mac:arm64`（或 `package:mac:x64`），再执行 `npm run test:distribution -- --arch arm64`（或 x64）。不运行 Windows 的 environment.ps1 或 install-runtime.mjs。`package:mac:universal` 另有保留。Actions 分别生成 arm64 和 x64 的独立包；x64 包在 Apple 芯片 runner 上通过 Rosetta 启动验证，在 Intel Mac 上使用 x64 包不需要 Rosetta。
 
 `.github/workflows/desktop-builds.yml` 在 main 推送及手动运行时构建 Mac 包。ZIP 包含完整运行时、示例、说明和记录源码提交的 `version.json`，旁边提供 SHA256 文件。Actions 制品保留 30 天，可从仓库 Actions 页重新运行工作流生成。
 
-Intel runner 的虚拟图形驱动无法创建 WebGL，CI 的 x64 启动验证显式使用 SwiftShader 软件图形后端，仍执行三维构造、截线、双球和导入检查；这项设置仅在测试启动参数中生效，交付应用默认使用系统图形后端。Apple 芯片 runner 使用默认后端。个人 Mac 的具体 GPU 兼容性仍需实机验收。
+Intel runner 的虚拟图形驱动无法创建 WebGL，SwiftShader 的 Vulkan 初始化也失败。因此 CI 采用图形环境已验证的 Apple 芯片 runner，arm64 直接启动，x64 经 Rosetta 启动同一份待交付的 Intel .app，仍检查实际 Mach-O 架构、代码签名和完整三维功能。交付应用使用系统默认图形后端；物理 Intel Mac 的具体 GPU 兼容性仍需实机验收。
 
 ## 主要文件
 
