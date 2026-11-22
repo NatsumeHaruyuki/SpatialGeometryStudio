@@ -68,9 +68,10 @@ let page;
 const errors = [];
 try {
   let ready = false;
-  for (let attempt = 0; attempt < 120; attempt++) {
+  const startupAttempts = platform === 'darwin' && process.arch === 'arm64' && values.arch === 'x64' ? 360 : 120;
+  for (let attempt = 0; attempt < startupAttempts; attempt++) {
     if (spawnError) throw spawnError;
-    if (launcher.exitCode !== null) throw new Error(`Packaged app exited with ${launcher.exitCode}: ${output}`);
+    if (launcher.exitCode !== null || launcher.signalCode !== null) throw new Error(`Packaged app exited with code ${launcher.exitCode}, signal ${launcher.signalCode}: ${output}`);
     try { if ((await fetch(`http://127.0.0.1:${port}/json/version`)).ok) { ready = true; break; } } catch {}
     await new Promise(resolve => setTimeout(resolve, 500));
   }
@@ -124,6 +125,7 @@ try {
   console.log(`PASS ${label} ${values.arch}: verified ZIP checksum and contents; relocated embedded runtime launches without developer tools; renderer reloads offline; geometry, spheres, v2 JSON import, bundled Prompt and portable data work.`);
   console.log(`Verified distribution: ${path.join(release, name)}`);
 } catch (error) {
+  console.error('Launcher state:', { pid: launcher.pid, exitCode: launcher.exitCode, signalCode: launcher.signalCode });
   console.error('Packaged application output:', output);
   console.error('Renderer errors:', errors);
   if (page) {
