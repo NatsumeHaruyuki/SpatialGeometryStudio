@@ -40,7 +40,7 @@ if (platform === 'win32') {
   await access(path.join(folder, 'resources', 'app.asar'));
   await access(path.join(folder, 'icudtl.dat'));
 } else {
-  const bundle = path.join(folder, 'Spatial Geometry Studio.app');
+  const bundle = path.join(folder, 'SpatialGeometryStudio.app');
   const binary = execFileSync('/usr/libexec/PlistBuddy', ['-c', 'Print :CFBundleExecutable', path.join(bundle, 'Contents', 'Info.plist')], { encoding: 'utf8' }).trim();
   executable = path.join(bundle, 'Contents', 'MacOS', binary);
   execFileSync('/usr/bin/lipo', ['-verify_arch', values.arch, executable]);
@@ -85,6 +85,9 @@ try {
   assert.equal(info.mode, 'portable');
   assert.equal(info.path, path.join(folder, 'GeometryTeachingData'));
   await context.setOffline(true);
+  await page.reload();
+  await page.waitForSelector('.point-label');
+  assert.equal((await page.evaluate(() => window.studio.dataInfo())).path, info.path);
   await page.getByRole('button', { name: '三棱柱', exact: true }).click();
   assert.equal(await page.getByText('二面角 120.00°', { exact: true }).count(), 1);
   await page.getByRole('button', { name: '双圆锥', exact: true }).click();
@@ -108,7 +111,7 @@ try {
   assert.deepEqual(errors, []);
   await page.screenshot({ path: path.resolve(`.qa/distribution-${platform}-${values.arch}.png`), scale: 'css' });
   await page.evaluate(() => window.studio.setDirty(false));
-  console.log(`PASS ${label} ${values.arch}: verified ZIP checksum and contents; relocated embedded runtime launches offline without developer tools; geometry, spheres, v2 JSON import, bundled Prompt and portable data work.`);
+  console.log(`PASS ${label} ${values.arch}: verified ZIP checksum and contents; relocated embedded runtime launches without developer tools; renderer reloads offline; geometry, spheres, v2 JSON import, bundled Prompt and portable data work.`);
   console.log(`Verified distribution: ${path.join(release, name)}`);
 } finally {
   if (browser) {

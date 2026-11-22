@@ -6,7 +6,7 @@
 
 Windows 11 x64：使用 `release-v0.2.1/SpatialGeometryStudio-Windows-v0.2.1-x64` 文件夹，或解压同名 ZIP。双击其中的 `SpatialGeometryStudio.exe` 即可，不需要 Node.js、Python、npm、外部 Electron 或开发服务器。迁移时复制整个文件夹，保留 DLL、resources、locales 等全部运行时文件。
 
-macOS：GitHub Actions 的 `Desktop builds` 工作流分别生成 `SpatialGeometryStudio-macOS-arm64`（Apple 芯片）和 `SpatialGeometryStudio-macOS-x64`（Intel）制品。下载后解压制品内的分发 ZIP，双击 `Spatial Geometry Studio.app`。应用使用 ad-hoc 签名，未经 Apple Developer ID 签名和公证；首次运行若被系统拦截，确认来源后按“系统设置 → 隐私与安全性 → 仍要打开”的提示处理。单位设备策略可能限制运行。Actions 会启动解压后的实际应用进行离线验证，最终结果以对应 run 状态为准。
+macOS：GitHub Actions 的 `Desktop builds` 工作流分别生成 `SpatialGeometryStudio-macOS-arm64`（Apple 芯片）和 `SpatialGeometryStudio-macOS-x64`（Intel）制品。下载后解压制品内的分发 ZIP，双击 `SpatialGeometryStudio.app`。应用使用 ad-hoc 签名，未经 Apple Developer ID 签名和公证；首次运行若被系统拦截，确认来源后按“系统设置 → 隐私与安全性 → 仍要打开”的提示处理。单位设备策略可能限制运行。Actions 会启动解压后的实际应用进行离线验证，最终结果以对应 run 状态为准。
 
 Windows 的 `Windows v0.2.cmd` 是开发目录中的课堂 sample 启动器，依赖本机 D:\DevDep，不能作为独立分发版复制给同事；详细说明见 `SAMPLE.md`。独立版通过“打开项目”加载 `samples/studyProjection.gscene`，可查看同一课例。球心和垂足、过点垂线、三角形、三点角及点面距离均保留。
 
@@ -59,7 +59,7 @@ Windows 的 `Windows v0.2.cmd` 是开发目录中的课堂 sample 启动器，�
 
 Windows 新安装软件统一放在 `D:\DevDep` 下的 camelCase 软件目录。当前 Node.js：`D:\DevDep\nodeJs\node-v24.22.3-win-x64`；Electron：`D:\DevDep\electron\electron45_4_1`；npm 和打包缓存分别在 `D:\DevDep\npmCache`、`D:\DevDep\electronBuilder`。项目的 `node_modules` 为项目依赖，留在此开发目录。未改机器级 PATH。
 
-本机双击 `Dev.cmd` 可开发预览；双击 `BuildWindows.cmd` 构建 Windows 文件夹分发版。打包脚本会拒绝覆盖同名成品目录，避免覆盖其中可能存在的用户项目；再次打包前请先移走旧成品或更新版本号。也可以在 PowerShell 执行：
+本机双击 `Dev.cmd` 可开发预览；双击 `BuildWindows.cmd` 构建 Windows 文件夹分发版。打包脚本会拒绝覆盖同名成品目录、ZIP 或校验文件，避免覆盖旧包和可能存在的用户项目；再次打包前请先移走这三项旧成品或更新版本号。也可以在 PowerShell 执行：
 
 ```powershell
 . .\scripts\environment.ps1
