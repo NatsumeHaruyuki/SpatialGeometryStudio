@@ -6,7 +6,7 @@
 
 Windows 11 x64：使用 `release-v0.2.1/SpatialGeometryStudio-Windows-v0.2.1-x64` 文件夹，或解压同名 ZIP。双击其中的 `SpatialGeometryStudio.exe` 即可，不需要 Node.js、Python、npm、外部 Electron 或开发服务器。迁移时复制整个文件夹，保留 DLL、resources、locales 等全部运行时文件。
 
-macOS：GitHub Actions 的 `Desktop builds` 工作流分别生成 `SpatialGeometryStudio-macOS-arm64`（Apple 芯片）和 `SpatialGeometryStudio-macOS-x64`（Intel）制品。下载后解压制品内的分发 ZIP，双击 `SpatialGeometryStudio.app`。应用使用 ad-hoc 签名，未经 Apple Developer ID 签名和公证；首次运行若被系统拦截，确认来源后按“系统设置 → 隐私与安全性 → 仍要打开”的提示处理。单位设备策略可能限制运行。Actions 会启动解压后的实际应用进行离线验证，最终结果以对应 run 状态为准。
+macOS Apple 芯片：GitHub Actions 的 `Desktop builds` 工作流生成 `SpatialGeometryStudio-macOS-arm64` 制品。下载后解压制品内的分发 ZIP，双击 `SpatialGeometryStudio.app`。应用使用 ad-hoc 签名，未经 Apple Developer ID 签名和公证；首次运行若被系统拦截，确认来源后按“系统设置 → 隐私与安全性 → 仍要打开”的提示处理。单位设备策略可能限制运行。Actions 会启动解压后的实际应用进行离线验证，最终结果以对应 run 状态为准。
 
 Windows 的 `Windows v0.2.cmd` 是开发目录中的课堂 sample 启动器，依赖本机 D:\DevDep，不能作为独立分发版复制给同事；详细说明见 `SAMPLE.md`。独立版通过“打开项目”加载 `samples/studyProjection.gscene`，可查看同一课例。球心和垂足、过点垂线、三角形、三点角及点面距离均保留。
 
@@ -84,11 +84,11 @@ npm run test:distribution -- --arch x64
 
 Electron 渲染器禁用 Node，开启 context isolation 和 sandbox；preload 仅暴露受限文件与数据设置接口。主进程校验 IPC 来源，不允许外部窗口、导航和权限请求。凭据不进入工程或发布包。
 
-macOS 构建使用 Node.js 24：执行 `npm ci`、`npm test`、`npm run package:mac:arm64`（或 `package:mac:x64`），再执行 `npm run test:distribution -- --arch arm64`（或 x64）。不运行 Windows 的 environment.ps1 或 install-runtime.mjs。`package:mac:universal` 另有保留。Actions 分别生成 arm64 和 x64 的独立包；x64 包在 Apple 芯片 runner 上通过 Rosetta 启动验证，在 Intel Mac 上使用 x64 包不需要 Rosetta。
+macOS Apple 芯片构建使用 Node.js 24：执行 `npm ci`、`npm test`、`npm run package:mac:arm64`，再执行 `npm run test:distribution -- --arch arm64`。不运行 Windows 的 environment.ps1 或 install-runtime.mjs。`package:mac:x64` 和 `package:mac:universal` 命令保留，尚未完成可用性验收。
 
 `.github/workflows/desktop-builds.yml` 在 main 推送及手动运行时构建 Mac 包。ZIP 包含完整运行时、示例、说明和记录源码提交的 `version.json`，旁边提供 SHA256 文件。Actions 制品保留 30 天，可从仓库 Actions 页重新运行工作流生成。
 
-Intel runner 的虚拟图形驱动无法创建 WebGL，SwiftShader 的 Vulkan 初始化也失败。因此 CI 采用图形环境已验证的 Apple 芯片 runner，arm64 直接启动，x64 经 Rosetta 启动同一份待交付的 Intel .app，仍检查实际 Mach-O 架构、代码签名和完整三维功能。交付应用使用系统默认图形后端；物理 Intel Mac 的具体 GPU 兼容性仍需实机验收。
+用户已确认使用 Apple 芯片，因此默认 Actions 和本次 Mac 交付目标为 arm64。Intel runner 的虚拟图形驱动及 SwiftShader/Vulkan 未能初始化 WebGL，Rosetta 方案也未完成启动验收；Intel 和 Universal 不作为已验证成品交付。Apple 芯片版使用系统默认图形后端，不需要 Rosetta。
 
 ## 主要文件
 
