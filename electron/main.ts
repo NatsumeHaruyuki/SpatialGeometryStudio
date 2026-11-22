@@ -4,14 +4,14 @@ import { readFile, mkdir } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 import { parseScene } from '../src/schema/scene';
 import { buildImportRepairRequest } from '../src/schema/importRepair';
-import { atomicWrite, chooseDataDirectory, readProject, type DataInfo } from './data';
+import { applicationDirectory, atomicWrite, chooseDataDirectory, readProject, type DataInfo } from './data';
 
 app.enableSandbox();
 app.setName('Spatial Geometry Studio');
 app.setAppUserModelId('studio.spatialgeometry.teaching');
 const development = !app.isPackaged && process.env.SGS_DEV_SERVER === 'http://127.0.0.1:5173';
 const indexFile = path.join(__dirname, '../dist/index.html');
-const appDirectory = process.env.SGS_DATA_ROOT ?? process.env.PORTABLE_EXECUTABLE_DIR ?? (app.isPackaged ? path.dirname(app.getPath('exe')) : path.resolve(__dirname, '..'));
+const appDirectory = process.env.SGS_DATA_ROOT ?? process.env.PORTABLE_EXECUTABLE_DIR ?? (app.isPackaged ? applicationDirectory(app.getPath('exe'), process.platform) : path.resolve(__dirname, '..'));
 const standardDirectory = process.env.SGS_USER_DATA_ROOT ?? app.getPath('userData');
 const modeFile = path.join(standardDirectory, 'mode.json');
 let window: BrowserWindow | null = null;

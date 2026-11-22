@@ -4,6 +4,10 @@ import { randomUUID } from 'node:crypto';
 import { MAX_PROJECT_BYTES, parseScene, type Scene } from '../src/schema/scene';
 
 export type DataInfo = { mode: 'portable' | 'standard'; path: string; warning: string | null };
+export function applicationDirectory(executable: string, platform: NodeJS.Platform): string {
+  const directory = path.dirname(executable);
+  return platform === 'darwin' ? path.resolve(directory, '../../..') : directory;
+}
 async function prepareDirectory(directory: string) {
   await mkdir(directory, { recursive: true });
   const probe = path.join(directory, `.write-test-${randomUUID()}`);

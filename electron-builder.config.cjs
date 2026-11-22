@@ -14,5 +14,5 @@ module.exports = {
   ...(process.platform === 'win32' && fs.existsSync(runtime) ? { electronDist: runtime } : {}),
   win: { target: [{ target: 'portable', arch: ['x64'] }], icon: 'build/app.ico', signExecutable: false, signAndEditExecutable: true, requestedExecutionLevel: 'asInvoker' },
   portable: { artifactName: 'SpatialGeometryStudio.exe', requestExecutionLevel: 'user' },
-  mac: { target: 'zip', category: 'public.app-category.education', identity: null },
+  mac: { target: 'zip', category: 'public.app-category.education', identity: '-', hardenedRuntime: false },
 };

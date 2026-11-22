@@ -20,10 +20,12 @@
     "test:sample": "node scripts/study-smoke.mjs && node scripts/sample-smoke.mjs",
     "test:import": "node scripts/question-import-smoke.mjs && node scripts/question-import-regressions.mjs",
     "test:portable": "node scripts/verify-portable.mjs",
+    "test:distribution": "node scripts/verify-distribution.mjs",
     "package:win": "npm run build && electron-builder --config electron-builder.config.cjs --win portable --x64 && node scripts/release.mjs",
-    "package:mac:arm64": "npm run build && electron-builder --config electron-builder.config.cjs --mac zip --arm64",
-    "package:mac:x64": "npm run build && electron-builder --config electron-builder.config.cjs --mac zip --x64",
-    "package:mac:universal": "npm run build && electron-builder --config electron-builder.config.cjs --mac zip --universal"
+    "package:win:folder": "npm run build && electron-builder --config electron-builder.config.cjs --win --x64 --dir --publish never && node scripts/release-folder.mjs --platform win32 --arch x64",
+    "package:mac:arm64": "npm run build && electron-builder --config electron-builder.config.cjs --mac --arm64 --dir --publish never && node scripts/release-folder.mjs --platform darwin --arch arm64",
+    "package:mac:x64": "npm run build && electron-builder --config electron-builder.config.cjs --mac --x64 --dir --publish never && node scripts/release-folder.mjs --platform darwin --arch x64",
+    "package:mac:universal": "npm run build && electron-builder --config electron-builder.config.cjs --mac --universal --dir --publish never && node scripts/release-folder.mjs --platform darwin --arch universal"
   },
   "dependencies": {
     "react": "19.3.1",

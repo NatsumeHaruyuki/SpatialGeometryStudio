@@ -1,20 +1,22 @@
-# 空间几何工作室 · Windows v0.2 sample
+# 空间几何工作室 · v0.2
 
-依据外层 `reamde.md` 制作的本地立体几何教学原型。所有代码、依赖、样例、验证脚本和发布物都在这个文件夹内；外层原始需求、PDF、Word 和样题文本未修改。
+本地立体几何教学应用，基于 React、Three.js 和 Electron。界面版本为 v0.2，包版本为 0.2.1。仓库包含完整源码、锁文件、示例、测试和跨平台打包配置；安装的依赖、用户数据及生成的发布物不进入 Git。外层原始需求、PDF、Word 和样题文本保留在本地。
 
 ## 直接试用
 
-本次先用本目录的 `Windows v0.2.cmd` 启动 sample，直接打开“球心、垂线与射影”。运行依赖本开发目录及本机已有的 D:\DevDep Electron；不需要开发服务器。详细说明见 `SAMPLE.md`。
+Windows 11 x64：使用 `release-v0.2.1/SpatialGeometryStudio-Windows-v0.2.1-x64` 文件夹，或解压同名 ZIP。双击其中的 `SpatialGeometryStudio.exe` 即可，不需要 Node.js、Python、npm、外部 Electron 或开发服务器。迁移时复制整个文件夹，保留 DLL、resources、locales 等全部运行时文件。
 
-本次新增可选球心和垂足、过点作垂线、三角形高亮、三点角、带向量及射影三角形的点面距离；显示版本为平台＋v0.2。按用户要求，本次不打包；旧版 EXE/ZIP、目录与用户数据保留，用户确认 sample 后才更新发布包。
+macOS：GitHub Actions 的 `Desktop builds` 工作流分别生成 `SpatialGeometryStudio-macOS-arm64`（Apple 芯片）和 `SpatialGeometryStudio-macOS-x64`（Intel）制品。下载后解压制品内的分发 ZIP，双击 `Spatial Geometry Studio.app`。应用使用 ad-hoc 签名，未经 Apple Developer ID 签名和公证；首次运行若被系统拦截，确认来源后按“系统设置 → 隐私与安全性 → 仍要打开”的提示处理。单位设备策略可能限制运行。Actions 会启动解压后的实际应用进行离线验证，最终结果以对应 run 状态为准。
+
+Windows 的 `Windows v0.2.cmd` 是开发目录中的课堂 sample 启动器，依赖本机 D:\DevDep，不能作为独立分发版复制给同事；详细说明见 `SAMPLE.md`。独立版通过“打开项目”加载 `samples/studyProjection.gscene`，可查看同一课例。球心和垂足、过点垂线、三角形、三点角及点面距离均保留。
 
 题图导入现已采用题目点优先的协议2：在“JSON 导入 / 导出”复制新的完整 Prompt，让外部多模态模型附图生成 JSON，粘贴返回结果即可。题目自己的 D/O/A/B/C 等点名直接建模，不再由圆锥等预占；可省略的界面字段自动补齐，支持常见代码围栏和网页转义。旧版协议1文件继续按原语义打开。
 
 可直接试用 `examples/questionConeV2.gscene`（含题干），或粘贴 `examples/questionConeV2.json`（简洁输入）。已核对底面等边三角形、AE=AD=2 和 PO/DO=√6/6。若出现真实缺点、重定义或循环依赖，提示会给出具体点和构造位置，并提供“一键复制修复请求”。更新后请保存并关闭旧 sample 窗口，再用启动器重开、重新复制 Prompt。
 
-首次运行在 EXE 同级创建 `GeometryTeachingData`，其中 `projects` 放项目、`exports` 放图片、`settings` 放本地配置。如果程序目录不可写，回退到用户数据目录。右侧齿轮可选择便携或标准模式，下次启动生效。切换目录不会移动或删除旧项目。
+首次运行在 Windows EXE 同级、macOS `.app` 同级创建 `GeometryTeachingData`，其中 `projects` 放项目、`exports` 放图片、`settings` 放本地配置；不会写入 `.app/Contents`。如果程序目录不可写，回退到用户数据目录。右侧齿轮可选择便携或标准模式，下次启动生效。切换目录不会移动或删除旧项目。
 
-应用未签名，属于内部测试包。正式发布签名、其他电脑兼容性和 Windows 10 实机验收仍需补充。macOS 配置已预留，不宣称已有可用 Mac 产物。
+这是内部测试分发版。Windows 没有发布者签名，Mac 没有 Developer ID 签名和公证。自动化验证不替代其他个人电脑和显卡的兼容性验收。旧版 EXE/ZIP 和用户项目均保留。
 
 ## 可操作功能
 
@@ -57,7 +59,7 @@
 
 Windows 新安装软件统一放在 `D:\DevDep` 下的 camelCase 软件目录。当前 Node.js：`D:\DevDep\nodeJs\node-v24.22.3-win-x64`；Electron：`D:\DevDep\electron\electron45_4_1`；npm 和打包缓存分别在 `D:\DevDep\npmCache`、`D:\DevDep\electronBuilder`。项目的 `node_modules` 为项目依赖，留在此开发目录。未改机器级 PATH。
 
-双击 `Dev.cmd` 可开发预览；双击 `BuildWindows.cmd` 重新构建发布包。也可以在 PowerShell 执行：
+本机双击 `Dev.cmd` 可开发预览；双击 `BuildWindows.cmd` 构建 Windows 文件夹分发版。打包脚本会拒绝覆盖同名成品目录，避免覆盖其中可能存在的用户项目；再次打包前请先移走旧成品或更新版本号。也可以在 PowerShell 执行：
 
 ```powershell
 . .\scripts\environment.ps1
@@ -70,6 +72,8 @@ npm run build
 npm run test:e2e
 npm run package:win
 npm run test:portable
+npm run package:win:folder
+npm run test:distribution -- --arch x64
 ```
 
 `dev:desktop` 使用 127.0.0.1:5173，需先结束占用该端口的开发服务器。桌面主进程改动后重新启动。`npm run start` 打开已构建桌面应用。开发脚本绑定本机已有依赖位置；给同事的发布包没有这些依赖路径要求。
@@ -80,7 +84,9 @@ npm run test:portable
 
 Electron 渲染器禁用 Node，开启 context isolation 和 sandbox；preload 仅暴露受限文件与数据设置接口。主进程校验 IPC 来源，不允许外部窗口、导航和权限请求。凭据不进入工程或发布包。
 
-macOS 构建命令已保留为 `package:mac:arm64`、`package:mac:x64` 和 `package:mac:universal`，须在原生 Mac 构建、测试和签名，尚未执行。macOS 下使用原生 Node/Electron 依赖，不运行本机 Windows 的 environment.ps1。
+原生 macOS 构建使用 Node.js 24：执行 `npm ci`、`npm test`、`npm run package:mac:arm64`（或 `package:mac:x64`），再执行 `npm run test:distribution -- --arch arm64`（或 x64）。不运行 Windows 的 environment.ps1 或 install-runtime.mjs。`package:mac:universal` 另有保留，Actions 默认分别生成两种原生架构，不依赖 Rosetta。
+
+`.github/workflows/desktop-builds.yml` 在 main 推送及手动运行时构建 Mac 包。ZIP 包含完整运行时、示例、说明和记录源码提交的 `version.json`，旁边提供 SHA256 文件。Actions 制品保留 30 天，可从仓库 Actions 页重新运行工作流生成。
 
 ## 主要文件
 

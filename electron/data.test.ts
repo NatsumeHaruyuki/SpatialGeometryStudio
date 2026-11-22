@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { chooseDataDirectory, atomicWrite, readProject } from './data';
+import { applicationDirectory, chooseDataDirectory, atomicWrite, readProject } from './data';
 import { createExample } from '../src/geometry/examples';
 
 const roots: string[] = [];
@@ -12,6 +12,19 @@ async function fixture() {
 }
 afterEach(async () => { for (const root of roots.splice(0)) { if (!root.startsWith(path.resolve('.qa/data-tests') + path.sep)) throw new Error('Unsafe cleanup'); await rm(root, { recursive: true, force: true }); } });
 describe('portable desktop files', () => {
+  it('keeps Windows portable data beside the executable', () => {
+    const root = path.resolve('.qa', '中文 Windows 应用');
+    expect(applicationDirectory(path.join(root, 'SpatialGeometryStudio.exe'), 'win32')).toBe(root);
+  });
+  it('keeps macOS portable data beside the app bundle without modifying its contents', async () => {
+    const root = await fixture();
+    const bundle = path.join(root, '中文 空间几何.app');
+    const executable = path.join(bundle, 'Contents', 'MacOS', 'SpatialGeometryStudio');
+    const directory = applicationDirectory(executable, 'darwin');
+    expect(directory).toBe(root);
+    const info = await chooseDataDirectory(directory, path.join(root, 'user'), 'portable');
+    expect(info.path).toBe(path.join(root, 'GeometryTeachingData'));
+  });
   it('creates a portable data folder beside the executable', async () => {
     const root = await fixture();
     const info = await chooseDataDirectory(path.join(root, 'app'), path.join(root, 'user'), 'portable');
